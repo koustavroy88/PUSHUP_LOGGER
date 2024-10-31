@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Update Workout
+{% endblock title %}
+{% block content %}
+<div class="container fs-4 mt-5">
+    Hello, {{ name|capitalize  }}
+    <p>Please Update the Workout</p>
+</div>
+<form method="POST" action="{{ url_for('main_bp.update_workout', workout_id = workout.id) }}" class="container my-4 fs-5">
+    <div class="mb-3">
+        <label for="pushups" class="form-label">No of Pushups</label>
+        <input type="number" class="form-control" required name="pushups" id="pushups" placeholder="{{ workout.pushups }}">
+    </div>
+    <div class="mb-3">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea type="text" class="form-control" required name="comment" id="comment">{{ workout.comment }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

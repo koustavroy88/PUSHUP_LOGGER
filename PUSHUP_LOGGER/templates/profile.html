@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock title %}
+{% block content %}
+<div class="container fs-4 mt-5">
+    Hello, {{ user.name|capitalize  }}
+</div>
+<div class="container my-5">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-primary" role="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+<div class="container fs-5 mt-5">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No Of Pushups</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Date Posted</th>
+            <th scope="col" class="d-flex justify-content-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for workout in workouts %}
+            <tr>
+                <td>{{ workout.pushups }}</td>
+                <td>{{ workout.comment }}</td>
+                <td>{{ workout.date_posted }}</td>
+                <div class="containe d-flex">
+                    <td><a type="button" class="btn btn-primary" href="{{ url_for('main_bp.update_workout', workout_id=workout.id) }}">Update</a></td>
+                    <td><a type="button" class="btn btn-primary" href="{{ url_for('main_bp.delete_workout', workout_id=workout.id) }}">Delete</a></td>    
+                </div>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <div class="container">
+        {%  for page_num in workouts.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1)  %}
+            {% if page_num %}
+                {% if workouts.page == page_num %}
+                <a type="button" class="btn btn-primary" href="{{ url_for('main_bp.profile', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                <a type="button" class="btn btn-outline-primary" href="{{ url_for('main_bp.profile', page=page_num) }}">{{ page_num }}</a>                    
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+      </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock title %}
+{% block content %}
+    <div class="container my-5 fs-4">
+        <h2>Hello</h2>
+        <center>
+            <img src="{{url_for('static', filename='pushup.jpg')}}" alt="Pushup Image" height="200px">
+        </center>
+        <p>This is a Pushup Logger App <br> We are making use of CRUD functionality in Flask framework</p>
+    </div>
+{% endblock content %}
